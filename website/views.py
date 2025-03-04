@@ -93,3 +93,6 @@ def update_record(request, id):
         messages.warning(request, 'You must be logged in to update a record')
         return redirect('home')
     
+def clocl(request):
+    pass
+    
