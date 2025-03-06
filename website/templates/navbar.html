@@ -1,30 +1,36 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
     <div class="container-fluid">
       <a class="navbar-brand" href="{% url 'home' %}">Django CRM</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        {% if user.is_authenticated %}
+
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-          {% if user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'add_record' %}">Add Record</a>
+            <a class="nav-link" href="{% url 'add_record' %}">
+              <i class="fas fa-plus text-black" data-bs-toggle="tooltip" title="Add Record"></i> Add Record
+            </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-          </li>
-
-          {% else %}  
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'home' %}">Login</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'register' %}">Register</a>
-          </li>
-          {% endif %}
         </ul>
+
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="btn btn-danger text-white" href="{% url 'logout' %}">Logout</a>
+          </li>
+        </ul>
+
+        {% else %}
+
+        <ul class="navbar-nav ms-auto"> 
+          <li class="nav-item">
+            <a class="btn btn-light text-black border border-primary" href="{% url 'home' %}">Login</a>
+          </li>
+        </ul>
+        
+        {% endif %}
       </div>
     </div>
   </nav>
