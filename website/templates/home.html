@@ -3,7 +3,7 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-    <h1>Welcome {{ user.username|capfirst }}</h1>
+    <h2>Welcome {{ user.username|capfirst }}</h2>
     </br>
     <table class="table table-striped table-hover table-bordered">
         <thead class="table-dark">
@@ -20,21 +20,28 @@
             </tr>
         </thead>
         <tbody>
+            {% if query %}
+                <h4>Search Results for "{{ query }}"</h4>
+            {% endif %}
             {% if records %}
-            {% for record in records %}
-            <tr>
-                <td>{{ record.first_name }}
-                {{ record.last_name }}</td>
-                <td>{{ record.phone }}</td>
-                <td>{{ record.email }}</td>
-                <td>{{ record.address }}</td>
-                <td>{{ record.city }}</td>
-                <td>{{ record.state }}</td>
-                <td>{{ record.zip_code }}</td>
-                <td>{{ record.created_at }}</td>
-                <td> <a href="{% url 'record' record.id%}">{{ record.id }}</a> </td>
-            </tr>
-            {% endfor %}
+                {% for record in records %}
+                <tr>
+                    <td>{{ record.first_name }}
+                    {{ record.last_name }}</td>
+                    <td>{{ record.phone }}</td>
+                    <td>{{ record.email }}</td>
+                    <td>{{ record.address }}</td>
+                    <td>{{ record.city }}</td>
+                    <td>{{ record.state }}</td>
+                    <td>{{ record.zip_code }}</td>
+                    <td>{{ record.created_at }}</td>
+                    <td> <a href="{% url 'record' record.id%}">{{ record.id }}</a> </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="9">No Records Found</td>
+                </tr>
             {% endif %}
         </tbody>
     </table>
