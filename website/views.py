@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
 from .forms import SignUpForm, AddRecordForm
 from django.contrib import messages
+from django.core.paginator import Paginator
 from .models import Record
 
 # Create your views here.
@@ -15,6 +16,11 @@ def home(request):
                                     Q(city__icontains=query) |
                                     Q(state__icontains=query) 
                                 ) if query else Record.objects.all()
+    paginator = Paginator(records, 5)  # Show 5 products per page
+
+    page_number = request.GET.get('page')  # Get the page number from URL
+    records = paginator.get_page(page_number)  # Get products for the requested pag
+    
     # Check to see if logging in
     if request.method == 'POST':
         username = request.POST['username']
